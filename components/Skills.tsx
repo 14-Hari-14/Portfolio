@@ -6,8 +6,6 @@ import { InteractiveHoverButtonColor2 } from "./ui/ButtonColor";
 import { InteractiveHoverButtonColorLarge } from "./ui/ButtonColorLarge";
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
-import heritageLogo from '/images/heritage_logo.png'
-import mecLogo from '/images/mec_logo.png'
 
 type Skill = {
   icon: React.ReactNode;
@@ -357,7 +355,7 @@ const About = () => {
                         <div className="flex flex-wrap items-center pl-2 md:pl-4 pt-5 pb-2 gap-4">
                         <div className="relative h-[60px] w-[60px] md:h-[80px] md:w-[80px] lg:h-[90px] lg:w-[90px]">
                             <Image 
-                            src={heritageLogo.src} 
+                            src='/heritage_logo.png'
                             alt="school-logo"
                             fill
                             className="object-contain"
@@ -380,7 +378,7 @@ const About = () => {
                         <div className="flex flex-wrap items-center pl-2 md:pl-4 pt-8 md:pt-14 pb-1 gap-4">
                         <div className="relative h-[60px] w-[60px] md:h-[80px] md:w-[80px] lg:h-[90px] lg:w-[90px]">
                             <Image 
-                            src={mecLogo.src} 
+                            src='/mec_logo.png'
                             alt="school-logo"
                             fill
                             className="object-contain"

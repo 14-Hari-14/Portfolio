@@ -1,4 +1,4 @@
-import arrowUp from '/images/Arrow up-right.png'
+import arrowUp from '/Arrow up-right.png'
 import Image from 'next/image'
 
 const MagicButton = ({

@@ -8,7 +8,12 @@ import Hero from "@/components/Hero"
 import About from "@/components/Skills"
 import Projects from "@/components/Projects"
 import Contact from "@/components/Contact"
-import Footer from "@/components/Footer"
+
+// Dynamic import for Footer to ensure it loads after main content
+const Footer = dynamic(() => import('@/components/Footer'), {
+  ssr: false,
+  loading: () => null // Don't show anything while loading
+})
 
 // Type-correct dynamic imports
 const FloatingNav = dynamic(() => import('@/components/ui/floating-navbar').then(mod => mod.FloatingNav), { 
@@ -17,11 +22,13 @@ const FloatingNav = dynamic(() => import('@/components/ui/floating-navbar').then
 })
 
 const FloatingDockVertical = dynamic(() => import('@/components/ui/floating-dock').then(mod => mod.FloatingDockVertical), { 
-  ssr: false 
+  ssr: false,
+  loading: () => null // Don't show anything while loading
 })
 
 const TracingBeam = dynamic(() => import('@/components/ui/tracing-beam').then(mod => mod.TracingBeam), { 
-  ssr: false 
+  ssr: false,
+  loading: () => <div className="min-h-screen" /> // Show a placeholder with minimum height
 })
 
 // Audio handling hook
@@ -82,8 +89,18 @@ interface NavItem {
 }
 
 export default function Home() {
+  const [isContentLoaded, setIsContentLoaded] = useState(false)
   const playClickSound = useClickSound("/audios/navbarclick.wav")
   
+  useEffect(() => {
+    // Set a small timeout to ensure main content is loaded first
+    const timer = setTimeout(() => {
+      setIsContentLoaded(true)
+    }, 100)
+    
+    return () => clearTimeout(timer)
+  }, [])
+
   const handleNavClick = (link: string, target?: string) => {
     playClickSound()
     
@@ -150,8 +167,12 @@ export default function Home() {
       </main>
       <div className="relative dark:bg-blue-100 bg-white-300 flex justify-center items-center flex-col overflow-hidden mx-auto sm:px-10 px-5 dark:bg-grid-white/[0.09] bg-grid-black/[0.09]">
         <Contact />
-        <Footer />
-        <FloatingDockVertical />
+        {isContentLoaded && (
+          <>
+            <Footer />
+            <FloatingDockVertical />
+          </>
+        )}
       </div>
     </>
   )

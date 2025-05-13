@@ -1,7 +1,7 @@
 'use client'
 import React from 'react';
 import { TypewriterEffect } from './ui/typewriter-effect';
-import locationtag from '../images/location.png';
+import locationtag from '/images/location.png';
 import { InteractiveHoverButton } from './ui/InteractiveHoverButtons';
 import { useRef, useEffect } from "react";
 import Image from 'next/image'

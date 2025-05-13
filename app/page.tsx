@@ -1,63 +1,132 @@
 "use client"
-import { FloatingNav } from "@/components/ui/floating-navbar";
-import Hero from "@/components/Hero";
-import About from "@/components/Skills";
-import Projects from "@/components/Projects";
-import { FloatingDockVertical } from "@/components/ui/floating-dock";
-import { FaHome, FaQuestionCircle, FaFileAlt, FaPhone } from 'react-icons/fa';
-import { TracingBeam } from "@/components/ui/tracing-beam";
-import Contact from "@/components/Contact";
-import Footer from "@/components/Footer";
-import { useRef, useEffect } from 'react';
+import { FaHome, FaQuestionCircle, FaFileAlt, FaPhone } from 'react-icons/fa'
+import { useRef, useEffect, useState } from 'react'
+import dynamic from 'next/dynamic'
+
+// Static imports for components
+import Hero from "@/components/Hero"
+import About from "@/components/Skills"
+import Projects from "@/components/Projects"
+import Contact from "@/components/Contact"
+import Footer from "@/components/Footer"
+
+// Type-correct dynamic imports
+const FloatingNav = dynamic(() => import('@/components/ui/floating-navbar').then(mod => mod.FloatingNav), { 
+  ssr: false,
+  loading: () => <div className="h-12" /> // Loading placeholder
+})
+
+const FloatingDockVertical = dynamic(() => import('@/components/ui/floating-dock').then(mod => mod.FloatingDockVertical), { 
+  ssr: false 
+})
+
+const TracingBeam = dynamic(() => import('@/components/ui/tracing-beam').then(mod => mod.TracingBeam), { 
+  ssr: false 
+})
+
+// Audio handling hook
+function useClickSound(audioPath: string) {
+  const [isReady, setIsReady] = useState(false)
+  const audioRef = useRef<HTMLAudioElement | null>(null)
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+
+    try {
+      audioRef.current = new Audio(audioPath)
+      audioRef.current.preload = 'auto'
+      
+      // iOS audio unlock
+      const unlockAudio = () => {
+        audioRef.current?.play().then(() => {
+          audioRef.current?.pause()
+          audioRef.current!.currentTime = 0
+          setIsReady(true)
+        }).catch(console.error)
+        document.removeEventListener('click', unlockAudio)
+      }
+      
+      document.addEventListener('click', unlockAudio)
+      setIsReady(true)
+
+      return () => {
+        audioRef.current?.pause()
+        document.removeEventListener('click', unlockAudio)
+      }
+    } catch (error) {
+      console.error('Audio initialization failed:', error)
+    }
+  }, [audioPath])
+
+  const play = () => {
+    if (!isReady || !audioRef.current) return
+    
+    try {
+      const audioClone = new Audio(audioRef.current.src)
+      audioClone.currentTime = 0
+      audioClone.play().catch(console.error)
+    } catch (error) {
+      console.error('Audio playback failed:', error)
+    }
+  }
+
+  return play
+}
+
+interface NavItem {
+  name: string
+  link: string
+  icons: React.ReactNode
+  target?: string
+  onClick: () => void
+}
 
 export default function Home() {
-  // Create audio ref
-  const clickSoundRef = useRef<HTMLAudioElement | null>(null);
-  
-  // Initialize audio in useEffect with browser check
-  useEffect(() => {
-    // Only create Audio object in browser environment
-    if (typeof window !== 'undefined') {
-      clickSoundRef.current = new Audio("/audios/navbarclick.wav");
-      
-      // Preload the audio
-      clickSoundRef.current.load();
-    }
-    
-    // Cleanup function
-    return () => {
-      if (clickSoundRef.current) {
-        clickSoundRef.current.pause();
-        clickSoundRef.current = null;
-      }
-    };
-  }, []);
-  
-  const playClickSound = () => {
-    if (clickSoundRef.current) {
-      clickSoundRef.current.currentTime = 0;
-      // Use a copy of the audio for CV link to ensure it doesn't block navigation
-      clickSoundRef.current.play().catch(e => console.log("Playback failed:", e));
-    }
-  };
+  const playClickSound = useClickSound("/audios/navbarclick.wav")
   
   const handleNavClick = (link: string, target?: string) => {
-    playClickSound();
+    playClickSound()
     
-    // For external links that open in new tab
     if (target === '_blank') {
-      // Use setTimeout to allow sound to play before opening the link
-      // This ensures the audio plays and doesn't get cut off by the navigation
-      window.open(link, '_blank', 'noopener,noreferrer');
-      return;
+      setTimeout(() => {
+        window.open(link, '_blank', 'noopener,noreferrer')
+      }, 150)
+      return
     }
     
-    // For internal navigation
-    const element = document.querySelector(link);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+    document.querySelector(link)?.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  const navItems: NavItem[] = [
+    { 
+      name: "01.Home", 
+      link: "#home", 
+      icons: <FaHome />, 
+      onClick: () => handleNavClick("#home") 
+    },
+    { 
+      name: "02.Skills", 
+      link: "#skills", 
+      icons: <FaQuestionCircle/>, 
+      onClick: () => handleNavClick("#skills") 
+    },
+    { 
+      name: "03.Contact Me", 
+      link: "#contact", 
+      icons: <FaPhone />, 
+      onClick: () => handleNavClick("#contact") 
+    },
+    { 
+      name: "04.CV", 
+      link: "https://docs.google.com/document/d/1Uh7ZdHak6Wt6kexexRzhm2BAujpcs7INM92t0pYonZ8/edit?usp=sharing", 
+      target: "_blank", 
+      icons: <FaFileAlt />, 
+      onClick: () => handleNavClick(
+        "https://docs.google.com/document/d/1Uh7ZdHak6Wt6kexexRzhm2BAujpcs7INM92t0pYonZ8/edit?usp=sharing", 
+        "_blank"
+      ) 
+    },
+  ]
 
   return (
     <>
@@ -71,20 +140,7 @@ export default function Home() {
         id="home"
       >
         <div className="max-w-7xl w-full">
-          <FloatingNav
-            navItems={[
-              { name: "01.Home", link: "#home", icons: <FaHome />, onClick: () => handleNavClick("#home") },
-              { name: "02.Skills", link: "#skills", icons: <FaQuestionCircle/>, onClick: () => handleNavClick("#skills") },
-              { name: "03.Contact Me", link: "#contact", icons: <FaPhone />, onClick: () => handleNavClick("#contact") },
-              { 
-                name: "04.CV", 
-                link: "https://docs.google.com/document/d/1Uh7ZdHak6Wt6kexexRzhm2BAujpcs7INM92t0pYonZ8/edit?usp=sharing", 
-                target: "_blank", 
-                icons: <FaFileAlt />, 
-                onClick: () => handleNavClick("https://docs.google.com/document/d/1Uh7ZdHak6Wt6kexexRzhm2BAujpcs7INM92t0pYonZ8/edit?usp=sharing", "_blank") 
-              },
-            ]}
-          />
+          <FloatingNav navItems={navItems} />
           <TracingBeam>
             <Hero />
             <About />
@@ -98,5 +154,5 @@ export default function Home() {
         <FloatingDockVertical />
       </div>
     </>
-  );
+  )
 }

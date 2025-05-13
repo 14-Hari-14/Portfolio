@@ -1,7 +1,6 @@
 'use client'
 import React from 'react';
 import { TypewriterEffect } from './ui/typewriter-effect';
-import locationtag from '@/public/location.png';
 import { InteractiveHoverButton } from './ui/InteractiveHoverButtons';
 import { useRef, useEffect } from "react";
 import Image from 'next/image'
@@ -75,7 +74,7 @@ const Hero = () => {
                             <div className="flex items-center justify-center gap-2">
                                 <Image
                                     className="h-5 w-5 sm:h-6 sm:w-6 lg:h-7 lg:w-7"
-                                    src={locationtag.src}
+                                    src='/location.webp'
                                     alt="location icon"
                                     width={20}
                                     height={20}

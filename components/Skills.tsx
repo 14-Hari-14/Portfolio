@@ -355,7 +355,7 @@ const About = () => {
                         <div className="flex flex-wrap items-center pl-2 md:pl-4 pt-5 pb-2 gap-4">
                         <div className="relative h-[60px] w-[60px] md:h-[80px] md:w-[80px] lg:h-[90px] lg:w-[90px]">
                             <Image 
-                            src='/heritage_logo.png'
+                            src='/heritage_logo.webp'
                             alt="school-logo"
                             fill
                             className="object-contain"
@@ -378,7 +378,7 @@ const About = () => {
                         <div className="flex flex-wrap items-center pl-2 md:pl-4 pt-8 md:pt-14 pb-1 gap-4">
                         <div className="relative h-[60px] w-[60px] md:h-[80px] md:w-[80px] lg:h-[90px] lg:w-[90px]">
                             <Image 
-                            src='/mec_logo.png'
+                            src='/mec_logo.webp'
                             alt="school-logo"
                             fill
                             className="object-contain"
@@ -403,7 +403,7 @@ const About = () => {
                         <p className="text-gray-200 dark:text-white-100">You are a bit early to this section</p>
                         <div className="relative h-[200px] w-[200px]">
                         <Image 
-                            src="/work_Exp_meme.jpg" 
+                            src="/work_Exp_meme.webp" 
                             alt="Work experience meme"
                             fill
                             className="object-contain"

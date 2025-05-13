@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useMotionValue, useTransform, MotionValue, useSpring, AnimatePresence } from 'framer-motion';
-import { IconBrandGithub, IconBrandGmail, IconBrandLinkedin, IconHome } from '@tabler/icons-react';
+import { IconBrandGithub, IconBrandGmail, IconBrandLinkedin } from '@tabler/icons-react';
 import { useRef, useState } from 'react';
 import Link from 'next/link';
 import React from 'react';

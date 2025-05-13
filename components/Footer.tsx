@@ -1,15 +1,18 @@
-import React from 'react'
+import React from 'react';
 
 const Footer = () => {
   return (
-    <footer className="max-w-full w-full mx-auto flex justify-between items-center pt-8 bg-orange-100 border-gray-800 rounded-lg snap-end">
-        <div className="flex items-center justify-between space-x-4">
-        <span className="text-[18px] text-gray-200">Hari ©2025 - Privacy Policy</span>
-        <span className='w-[80vw] hidden sm:block'></span>
-        <span className="text-[18px]">Kerala, India</span>
-        </div>
+    <footer className="w-full bg-gray-200 dark:bg-orange-100 border-t border-gray-300 dark:border-gray-700">
+      <div className="flex justify-between items-center px-2 sm:px-5 py-2">
+        <span className="text-lg text-orange-100 dark:text-gray-800">
+          14-Hari-14
+        </span>
+        <span className="text-lg text-orange-100 dark:text-gray-800">
+          Kerala, India
+        </span>
+      </div>
     </footer>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

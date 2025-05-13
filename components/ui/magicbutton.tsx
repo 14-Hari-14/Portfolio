@@ -1,8 +1,8 @@
-import React, { ReactNode } from 'react'
 import arrowUp from '../../images/Arrow up-right.png'
-import { img } from 'framer-motion/client'
+import Image from 'next/image'
+
 const MagicButton = ({
-    title, handleClick, otherClasses, 
+    title, otherClasses, 
 }:{
     title: string
     // icon: React.ReactNode
@@ -18,7 +18,7 @@ const MagicButton = ({
             <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
             <span className={`inline-flex h-full w-full cursor-pointer items-center justify-center rounded-lg bg-slate-950 px-7 py-1 text-[20px] font-medium text-white backdrop-blur-3xl font-mono ${otherClasses}`}>
             {title} 
-            <img 
+            <Image
             src={arrowUp.src} 
             alt="arrowIcon" 
             height={30}

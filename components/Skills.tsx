@@ -4,7 +4,7 @@ import { SiHtml5, SiCss3, SiJavascript, SiReact, SiNextdotjs, SiNodedotjs, SiPyt
 import { SiSupabase, SiFirebase, SiTailwindcss, SiTypescript, SiFigma } from "react-icons/si";
 import { InteractiveHoverButtonColor2 } from "./ui/ButtonColor";
 import { InteractiveHoverButtonColorLarge } from "./ui/ButtonColorLarge";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import heritageLogo from '../images/heritage_logo.png'
 import mecLogo from '../images/mec_logo.jpg'
@@ -30,14 +30,14 @@ const About = () => {
             { icon: <SiHtml5 className="text-red-500 text-[40px] lg:text-[50px]" />, name: "HTML" },
             { icon: <SiCss3 className="text-blue-500 text-[40px] lg:text-[50px]" />, name: "CSS" },
             { icon: <SiJavascript className="text-yellow-500 text-[40px] lg:text-[50px]" />, name: "JavaScript" },
-            { icon: <SiReact className="text-blue-400 text-[40px] lg:text-[50px]" />, name: "React" },
+            { icon: <SiReact className="dark:text-blue-400 text-blue-600 text-[40px] lg:text-[50px]" />, name: "React" },
             { icon: <SiNextdotjs className="text-white-100 text-[40px] lg:text-[50px]" />, name: "Next.js" },
             { icon: <SiTailwindcss className="text-cyan-400 text-[40px] lg:text-[50px]" />, name: "Tailwind" },
             { icon: <SiNodedotjs className="text-green-500 text-[40px] lg:text-[50px]" />, name: "Node.js" }
         ],
         "Lang": [
             { icon: <SiPython className="text-yellow-500 text-[40px] lg:text-[50px]" />, name: "Python" },
-            { icon: <SiC className="text-blue-400 text-[40px] lg:text-[50px]" />, name: "C" },
+            { icon: <SiC className="text-blue-500 text-[40px] lg:text-[50px]" />, name: "C" },
             { icon: <SiCplusplus className="text-blue-300 text-[40px] lg:text-[50px]" />, name: "C++" },
             { icon: <SiTypescript className="text-blue-500 text-[40px] lg:text-[50px]" />, name: "TypeScript" },
             { icon: <SiOpenjdk className="text-red-600 text-[40px] lg:text-[50px]" />, name: "Java" }
@@ -49,28 +49,58 @@ const About = () => {
         ],
         "Tools": [
             { icon: <SiGit className="text-orange-400 text-[40px] lg:text-[50px]" />, name: "Git" },
-            { icon: <SiGithub className="text-white-100 text-[40px] lg:text-[50px]" />, name: "GitHub" },
+            { icon: <SiGithub className="dark:text-white-100 text-gray-200 text-[40px] lg:text-[50px]" />, name: "GitHub" },
             { icon: <SiFigma className="text-purple-400 text-[40px] lg:text-[50px]" />, name: "Figma" }
         ]
     };
-    const hoverSound = typeof window !== "undefined" ? new Audio("/audios/interactitvebutton.mp3") : null;
-    const clickSound = typeof window !== "undefined" ? new Audio("/audios/navbarclick.wav") : null;
+
+    const hoverSound = useRef<HTMLAudioElement | null>(null);
+    const clickSound = useRef<HTMLAudioElement | null>(null);
+
+    // Initialize audio in useEffect
+    useEffect(() => {
+
+        if (typeof window !== 'undefined') {
+        // This runs only on client side after component mounts
+        hoverSound.current = new Audio("/audios/interactitvebutton.mp3");
+        clickSound.current = new Audio("/audios/navbarclick.wav");
+        
+        // Optional: Cleanup function to pause audio when component unmounts
+        return () => {
+            if (hoverSound.current) {
+                hoverSound.current.pause();
+                hoverSound.current = null;
+            }
+            if (clickSound.current) {
+                clickSound.current.pause();
+                clickSound.current = null;
+            }
+        }};
+    }, []);
 
     const handleHover = () => {
-    if (hoverSound) {
-        hoverSound.currentTime = 0;
-        hoverSound.play().catch((e) => {
-        console.warn("Playback prevented by browser:", e);
-        });
-    }
+        if (hoverSound.current) {
+            hoverSound.current.currentTime = 0;
+            hoverSound.current.play().catch((e) => {
+                console.warn("Playback prevented by browser:", e);
+            });
+        }
     };
 
-
     const handleClick = () => {
-    if (clickSound) {
-        clickSound.currentTime = 0;
-        clickSound.play();
-    }
+        if (clickSound.current) {
+            clickSound.current.currentTime = 0;
+            clickSound.current.play().catch((e) => {
+                console.warn("Playback prevented by browser:", e);
+            });
+        }
+        
+        // Also play hoverSound once to "unlock" it on mobile
+        if (hoverSound.current) {
+            hoverSound.current.play().catch((e) => {
+                console.warn("Playback prevented by browser:", e);
+            });
+        }
     };
 
 
@@ -240,7 +270,7 @@ const About = () => {
                             </p>
                             </div>
                             <div className="flex items-center">
-                            <span className="bg-purple-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+                            <span className="bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-medium">
                                 Finalists
                             </span>
                             </div>
@@ -250,10 +280,10 @@ const About = () => {
                             This project uses machine learning to recognize sign language gestures from a camera feed and convert them into readable text. It aims to assist deaf and dumb individuals by enabling real-time communication with others, bridging the gap between sign language users and non-signers for more inclusive conversations.
                             </p>
                             <div className="mt-4 flex flex-wrap gap-2">
-                            <span className="bg-orange-100 dark:bg-purple-100 bg-opacity-20 dark:bg-opacity-20 text-gray-200 dark:text-white-100 px-3 py-1 rounded-full text-sm">Python</span>
-                            <span className="bg-orange-100 dark:bg-purple-100 bg-opacity-20 dark:bg-opacity-20 text-gray-200 dark:text-white-100 px-3 py-1 rounded-full text-sm">TensorFlow</span>
-                            <span className="bg-orange-100 dark:bg-purple-100 bg-opacity-20 dark:bg-opacity-20 text-gray-200 dark:text-white-100 px-3 py-1 rounded-full text-sm">Web Sockets</span>
-                            <span className="bg-orange-100 dark:bg-purple-100 bg-opacity-20 dark:bg-opacity-20 text-gray-200 dark:text-white-100 px-3 py-1 rounded-full text-sm">Streamlit</span>
+                            <span className="bg-gray-200 text-orange-100 dark:bg-purple-100 dark:text-white-100 px-3 py-1 rounded-full text-sm">Python</span>
+                            <span className="bg-gray-200 text-orange-100 dark:bg-purple-100 dark:text-white-100 px-3 py-1 rounded-full text-sm">TensorFlow</span>
+                            <span className="bg-gray-200 text-orange-100 dark:bg-purple-100 dark:text-white-100 px-3 py-1 rounded-full text-sm">Web Sockets</span>
+                            <span className="bg-gray-200 text-orange-100 dark:bg-purple-100 dark:text-white-100 px-3 py-1 rounded-full text-sm">Streamlit</span>
                             </div>
                         </div>
                         </div>
@@ -270,7 +300,7 @@ const About = () => {
                             </p>
                             </div>
                             <div className="flex items-center">
-                            <span className="bg-purple-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+                            <span className="bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-medium">
                                 Finalist
                             </span>
                             </div>
@@ -280,10 +310,10 @@ const About = () => {
                             Built a neural network model to detect fire and smoke from live video feeds in real time, enabling early warnings for improved safety in homes and industrial settings.
                             </p>
                             <div className="mt-4 flex flex-wrap gap-2">
-                            <span className="bg-orange-100 dark:bg-purple-100 bg-opacity-20 dark:bg-opacity-20 text-gray-200 dark:text-white-100 px-3 py-1 rounded-full text-sm">Python</span>
-                            <span className="bg-orange-100 dark:bg-purple-100 bg-opacity-20 dark:bg-opacity-20 text-gray-200 dark:text-white-100 px-3 py-1 rounded-full text-sm">Pytorch</span>
-                            <span className="bg-orange-100 dark:bg-purple-100 bg-opacity-20 dark:bg-opacity-20 text-gray-200 dark:text-white-100 px-3 py-1 rounded-full text-sm">Streamlit</span>
-                            <span className="bg-orange-100 dark:bg-purple-100 bg-opacity-20 dark:bg-opacity-20 text-gray-200 dark:text-white-100 px-3 py-1 rounded-full text-sm">Bash</span>
+                            <span className="bg-gray-200 text-orange-100 dark:bg-purple-100 dark:text-white-100 px-3 py-1 rounded-full text-sm">Python</span>
+                            <span className="bg-gray-200 text-orange-100 dark:bg-purple-100 dark:text-white-100 px-3 py-1 rounded-full text-sm">Pytorch</span>
+                            <span className="bg-gray-200 text-orange-100 dark:bg-purple-100 dark:text-white-100 px-3 py-1 rounded-full text-sm">Streamlit</span>
+                            <span className="bg-gray-200 text-orange-100 dark:bg-purple-100 dark:text-white-100 px-3 py-1 rounded-full text-sm">Bash</span>
                             </div>
                         </div>
                         </div>
@@ -299,7 +329,7 @@ const About = () => {
                             </p>
                             </div>
                             <div className="flex items-center">
-                            <span className="bg-purple-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+                            <span className="bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-medium">
                                 Finalist
                             </span>
                             </div>
@@ -309,9 +339,9 @@ const About = () => {
                             Built a web app which will show baked recipes
                             </p>
                             <div className="mt-4 flex flex-wrap gap-2">
-                            <span className="bg-orange-100 dark:bg-purple-100 bg-opacity-20 dark:bg-opacity-20 text-gray-200 dark:text-white-100 px-3 py-1 rounded-full text-sm">HTML</span>
-                            <span className="bg-orange-100 dark:bg-purple-100 bg-opacity-20 dark:bg-opacity-20 text-gray-200 dark:text-white-100 px-3 py-1 rounded-full text-sm">CSS</span>
-                            <span className="bg-orange-100 dark:bg-purple-100 bg-opacity-20 dark:bg-opacity-20 text-gray-200 dark:text-white-100 px-3 py-1 rounded-full text-sm">JS</span>
+                            <span className="bg-gray-200 text-orange-100 dark:bg-purple-100 dark:text-white-100 px-3 py-1 rounded-full text-sm">HTML</span>
+                            <span className="bg-gray-200 text-orange-100 dark:bg-purple-100 dark:text-white-100 px-3 py-1 rounded-full text-sm">CSS</span>
+                            <span className="bg-gray-200 text-orange-100 dark:bg-purple-100 dark:text-white-100 px-3 py-1 rounded-full text-sm">JS</span>
                             </div>
                         </div>
                         </div>
@@ -372,7 +402,7 @@ const About = () => {
                     )}
                     {activeSection === "Work Experience" && (
                     <div className="mt-8 flex flex-col items-center gap-4">
-                        <p className="text-gray-200 dark:text-white-100">Such empty T-T but you can change that</p>
+                        <p className="text-gray-200 dark:text-white-100">You are a bit early to this section</p>
                         <div className="relative h-[200px] w-[200px]">
                         <Image 
                             src="/work_Exp_meme.jpg" 

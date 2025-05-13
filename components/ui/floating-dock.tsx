@@ -36,7 +36,7 @@ const FloatingDockCoreVertical = () => {
     {
       title: "Linkedin",
       icon: <IconBrandLinkedin />,
-      href: "https://www.linkedin.com/in/hari-nair-243811247/",
+      href: "https://www.linkedin.com/in/harishanker-s-nair-243811247/",
       target: "_blank",
     },
     {

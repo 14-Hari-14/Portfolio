@@ -7,7 +7,7 @@ import { InteractiveHoverButtonColorLarge } from "./ui/ButtonColorLarge";
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import heritageLogo from '/images/heritage_logo.png'
-import mecLogo from '/images/mec_logo.jpg'
+import mecLogo from '/images/mec_logo.png'
 
 type Skill = {
   icon: React.ReactNode;

@@ -25,7 +25,7 @@ export const projects = [
       des: "Developed an AI-powered tool that analyzes compatibility between resumes and job descriptions and provides corrections",
       img: "/p1.svg",
       iconLists: ["/re.svg", "/tail.svg", "/ts.svg", "/three.svg", "/fm.svg"],
-      techLists: ["Python", "Git", "Python", "Flask", "OpenAI API", "PyPDF2"],
+      techLists: ["Python", "Git", "Flask", "OpenAI API", "PyPDF2"],
       link: "https://github.com/14-Hari-14/Resume-Analyzer",
       /*color: "red-500",*/
     },

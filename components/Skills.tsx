@@ -1,7 +1,7 @@
 "use client"
 
-import { SiHtml5, SiCss3, SiJavascript, SiReact, SiNextdotjs, SiNodedotjs, SiPython, SiC, SiCplusplus, SiOpenjdk, SiGit, SiGithub, SiMysql } from "react-icons/si";
-import { SiSupabase, SiFirebase, SiTailwindcss, SiTypescript, SiFigma } from "react-icons/si";
+import { SiHtml5, SiCss3, SiJavascript, SiReact, SiNextdotjs, SiPython, SiGit, SiGithub, SiMysql, SiPytorch, SiTensorflow, SiOpencv, SiFastapi } from "react-icons/si";
+import { SiSupabase, SiFirebase, SiTailwindcss, SiTypescript } from "react-icons/si";
 import { InteractiveHoverButtonColor2 } from "./ui/ButtonColor";
 import { InteractiveHoverButtonColorLarge } from "./ui/ButtonColorLarge";
 import { useState, useRef, useEffect } from "react";
@@ -13,42 +13,46 @@ type Skill = {
 };
 
 type SkillCategories = {
-  "Web-Dev": Skill[];
-  "Lang": Skill[];
-  "DB": Skill[];
-  "Tools": Skill[];
+    "AI/ML": Skill[];
+    "Data/CV": Skill[];
+    "MLOps": Skill[];
+    "Web Base": Skill[];
 };
 
 const About = () => {
-    const [activeCategory, setActiveCategory] = useState<keyof SkillCategories>("Web-Dev");
+        const [activeCategory, setActiveCategory] = useState<keyof SkillCategories>("AI/ML");
     const [activeSection, setActiveSection] = useState("Skills");
 
     const skillCategories: SkillCategories = {
-        "Web-Dev": [
-            { icon: <SiHtml5 className="text-red-500 text-[40px] lg:text-[50px]" />, name: "HTML" },
-            { icon: <SiCss3 className="text-blue-500 text-[40px] lg:text-[50px]" />, name: "CSS" },
-            { icon: <SiJavascript className="text-yellow-500 text-[40px] lg:text-[50px]" />, name: "JavaScript" },
+        "AI/ML": [
+            { icon: <SiPython className="text-yellow-500 text-[40px] lg:text-[50px]" />, name: "Python" },
+            { icon: <SiPytorch className="text-orange-400 text-[40px] lg:text-[50px]" />, name: "PyTorch" },
+            { icon: <SiTensorflow className="text-orange-500 text-[40px] lg:text-[50px]" />, name: "TensorFlow" },
+            { icon: <SiPython className="text-blue-400 text-[40px] lg:text-[50px]" />, name: "LightGBM" },
+            { icon: <SiPython className="text-green-400 text-[40px] lg:text-[50px]" />, name: "Feature Engineering" }
+        ],
+        "Data/CV": [
+            { icon: <SiOpencv className="text-blue-400 text-[40px] lg:text-[50px]" />, name: "OpenCV" },
+            { icon: <SiPython className="text-yellow-400 text-[40px] lg:text-[50px]" />, name: "BERT/NLP" },
+            { icon: <SiPython className="text-cyan-400 text-[40px] lg:text-[50px]" />, name: "Vector Search (FAISS)" },
+            { icon: <SiMysql className="text-blue-300 text-[40px] lg:text-[50px]" />, name: "SQL/MySQL" }
+        ],
+        "MLOps": [
+            { icon: <SiFastapi className="text-teal-400 text-[40px] lg:text-[50px]" />, name: "FastAPI" },
+            { icon: <SiPython className="text-amber-300 text-[40px] lg:text-[50px]" />, name: "Suricata JSON Pipelines" },
+            { icon: <SiGit className="text-orange-400 text-[40px] lg:text-[50px]" />, name: "Git" },
+            { icon: <SiGithub className="dark:text-white-100 text-gray-200 text-[40px] lg:text-[50px]" />, name: "GitHub" }
+        ],
+        "Web Base": [
             { icon: <SiReact className="dark:text-blue-400 text-blue-600 text-[40px] lg:text-[50px]" />, name: "React" },
             { icon: <SiNextdotjs className="text-white-100 text-[40px] lg:text-[50px]" />, name: "Next.js" },
-            { icon: <SiTailwindcss className="text-cyan-400 text-[40px] lg:text-[50px]" />, name: "Tailwind" },
-            { icon: <SiNodedotjs className="text-green-500 text-[40px] lg:text-[50px]" />, name: "Node.js" }
-        ],
-        "Lang": [
-            { icon: <SiPython className="text-yellow-500 text-[40px] lg:text-[50px]" />, name: "Python" },
-            { icon: <SiC className="text-blue-500 text-[40px] lg:text-[50px]" />, name: "C" },
-            { icon: <SiCplusplus className="text-blue-300 text-[40px] lg:text-[50px]" />, name: "C++" },
             { icon: <SiTypescript className="text-blue-500 text-[40px] lg:text-[50px]" />, name: "TypeScript" },
-            { icon: <SiOpenjdk className="text-red-600 text-[40px] lg:text-[50px]" />, name: "Java" }
-        ],
-        "DB": [
-            { icon: <SiSupabase className="text-green-400 text-[40px] lg:text-[50px]" />, name: "Supabase" },
+            { icon: <SiTailwindcss className="text-cyan-400 text-[40px] lg:text-[50px]" />, name: "Tailwind" },
+            { icon: <SiJavascript className="text-yellow-500 text-[40px] lg:text-[50px]" />, name: "JavaScript" },
+            { icon: <SiHtml5 className="text-red-500 text-[40px] lg:text-[50px]" />, name: "HTML" },
+            { icon: <SiCss3 className="text-blue-500 text-[40px] lg:text-[50px]" />, name: "CSS" },
             { icon: <SiFirebase className="text-orange-400 text-[40px] lg:text-[50px]" />, name: "Firebase" },
-            { icon: <SiMysql className="text-blue-300 text-[40px] lg:text-[50px]" />, name: "MySQL" }
-        ],
-        "Tools": [
-            { icon: <SiGit className="text-orange-400 text-[40px] lg:text-[50px]" />, name: "Git" },
-            { icon: <SiGithub className="dark:text-white-100 text-gray-200 text-[40px] lg:text-[50px]" />, name: "GitHub" },
-            { icon: <SiFigma className="text-purple-400 text-[40px] lg:text-[50px]" />, name: "Figma" }
+            { icon: <SiSupabase className="text-green-400 text-[40px] lg:text-[50px]" />, name: "Supabase" }
         ]
     };
 
@@ -399,15 +403,47 @@ const About = () => {
                     </div>
                     )}
                     {activeSection === "Work Experience" && (
-                    <div className="mt-8 flex flex-col items-center gap-4">
-                        <p className="text-gray-200 dark:text-white-100">You are a bit early to this section</p>
-                        <div className="relative h-[200px] w-[200px]">
-                        <Image 
-                            src="/work_Exp_meme.webp" 
-                            alt="Work experience meme"
-                            fill
-                            className="object-contain"
-                        />
+                    <div className="mt-8 px-4">
+                        <h1 className="text-[40px] md:text-[50px] lg:text-[60px] dark:text-purple-100 text-orange-100 underline pl-2 md:pl-3">
+                        Work Experience
+                        </h1>
+
+                        <div className="mt-6 p-4 border border-orange-100 dark:border-purple-100 border-opacity-30 dark:border-opacity-30 rounded-lg bg-orange-100 dark:bg-purple-100 bg-opacity-10 dark:bg-opacity-10 hover:bg-opacity-20 dark:hover:bg-opacity-20 transition-all">
+                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                            <div>
+                            <h2 className="text-[24px] md:text-[28px] lg:text-[32px] dark:text-white-100 text-gray-200 font-medium">
+                                Whizhack Technologies
+                            </h2>
+                            <p className="text-[16px] md:text-[18px] lg:text-[20px] dark:text-purple-200 text-gray-200">
+                                Gurugram, India
+                            </p>
+                            </div>
+                            <div className="flex items-center">
+                            <span className="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+                                Jan 2026 - Present (Ongoing)
+                            </span>
+                            </div>
+                        </div>
+
+                        <div className="mt-4">
+                            <h3 className="text-[18px] md:text-[20px] lg:text-[22px] dark:text-white-100 text-gray-200 font-medium">
+                            Data Analyst Intern (Cybersecurity)
+                            </h3>
+                            <ul className="mt-3 list-disc pl-5 space-y-2 text-[16px] dark:text-white-100 text-gray-200">
+                            <li>
+                                Engineered a sub-millisecond network gateway pre-filter using LightGBM and EMBER-2024 features, reducing false positive rate from 20% to 5.56% and false negative rate from 33% to 10.18% on truncated 1MB payloads.
+                            </li>
+                            <li>
+                                Built a static feature extraction pipeline for Windows PE files including Authenticode verification, overlay entropy analysis, and Rich Header inspection to detect advanced evasion techniques.
+                            </li>
+                            <li>
+                                Implemented a cascading detection pipeline that routes low-confidence ML predictions through deterministic rule-based validation checks.
+                            </li>
+                            <li>
+                                Integrated Suricata JSON logs using concurrent thread pools to analyze dropped payloads and append predictive verdicts in under 0.5ms.
+                            </li>
+                            </ul>
+                        </div>
                         </div>
                     </div>
                     )}

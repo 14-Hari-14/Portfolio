@@ -62,7 +62,7 @@ const Contact = () => {
       id="contact"
     >
       <div className="text-center">
-        <h1 className="text-2xl md:text-3xl lg:text-4xl mb-2">Want to build something together?</h1>
+        <h1 className="text-2xl md:text-3xl lg:text-4xl mb-2">Want to reach out to me?</h1>
         <p className="text-base md:text-lg">
           You can email me at
           <span className="ml-1 dark:text-purple-100 text-orange-100 text-decoration-line: underline">

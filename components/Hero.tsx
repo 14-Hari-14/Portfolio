@@ -69,7 +69,7 @@ const Hero = () => {
                     <div className='flex flex-col items-center w-full lg:mt-7 mb-6 sm:mb-8 sm:mt-2 mt-1'>
                         <div className='flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-5 w-full'>
                             <h1 className="uppercase tracking-widest text-xl sm:text-2xl lg:text-[30px] text-center dark:text-purple-100 font-bold text-gray-500 font-oswald">
-                                STUDENT | FULLSTACK DEV
+                                STUDENT | AI ML ENGINEER
                             </h1>
                             <div className="flex items-center justify-center gap-2">
                                 <Image

@@ -8,6 +8,7 @@ import Hero from "@/components/Hero"
 import About from "@/components/Skills"
 import Projects from "@/components/Projects"
 import Contact from "@/components/Contact"
+import { TracingBeam } from '@/components/ui/tracing-beam'
 
 // Dynamic import for Footer to ensure it loads after main content
 const Footer = dynamic(() => import('@/components/Footer'), {
@@ -24,11 +25,6 @@ const FloatingNav = dynamic(() => import('@/components/ui/floating-navbar').then
 const FloatingDockVertical = dynamic(() => import('@/components/ui/floating-dock').then(mod => mod.FloatingDockVertical), { 
   ssr: false,
   loading: () => null // Don't show anything while loading
-})
-
-const TracingBeam = dynamic(() => import('@/components/ui/tracing-beam').then(mod => mod.TracingBeam), { 
-  ssr: false,
-  loading: () => <div className="min-h-screen" /> // Show a placeholder with minimum height
 })
 
 // Audio handling hook
@@ -135,11 +131,11 @@ export default function Home() {
     },
     { 
       name: "04.CV", 
-      link: "https://docs.google.com/document/d/1Uh7ZdHak6Wt6kexexRzhm2BAujpcs7INM92t0pYonZ8/edit?usp=sharing", 
+      link: "https://drive.google.com/file/d/1IoQq7tzYjICWTs3cCrRUFwym7_UirWeQ/view", 
       target: "_blank", 
       icons: <FaFileAlt />, 
       onClick: () => handleNavClick(
-        "https://docs.google.com/document/d/1Uh7ZdHak6Wt6kexexRzhm2BAujpcs7INM92t0pYonZ8/edit?usp=sharing", 
+        "https://drive.google.com/file/d/1IoQq7tzYjICWTs3cCrRUFwym7_UirWeQ/view", 
         "_blank"
       ) 
     },

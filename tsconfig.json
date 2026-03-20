@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "ES2017", // Matches modern JavaScript standards
-    "lib": ["dom", "dom.iterable", "esnext"], // Includes necessary libraries
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ], // Includes necessary libraries
     "allowJs": true, // Allows JavaScript files in the project
     "skipLibCheck": true, // Skips type checks for dependencies
     "strict": true, // Enables strict type checking
@@ -11,8 +15,11 @@
     "moduleResolution": "node", // Resolves modules in Node.js style
     "resolveJsonModule": true, // Allows importing JSON files
     "isolatedModules": true, // Ensures compatibility with Next.js
-    "jsx": "preserve", // Leaves JSX as-is for Next.js to handle
-    "types": ["react", "node"], // Includes type definitions for React and Node.js
+    "jsx": "react-jsx", // Leaves JSX as-is for Next.js to handle
+    "types": [
+      "react",
+      "node"
+    ], // Includes type definitions for React and Node.js
     "incremental": true, // Enables faster rebuilds
     "plugins": [
       {
@@ -20,7 +27,9 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"] // Supports absolute imports starting with "@/"
+      "@/*": [
+        "./*"
+      ] // Supports absolute imports starting with "@/"
     }
   },
   "include": [
@@ -28,6 +37,10 @@
     "**/*.ts", // Includes TypeScript files
     "**/*.tsx", // Includes TypeScript JSX files
     ".next/types/**/*.ts" // Includes Next.js types
+    ,
+    ".next/dev/types/**/*.ts"
   ],
-  "exclude": ["node_modules"] // Excludes dependencies from being type-checked
+  "exclude": [
+    "node_modules"
+  ] // Excludes dependencies from being type-checked
 }
